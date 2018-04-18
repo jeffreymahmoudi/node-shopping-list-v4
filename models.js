@@ -1,3 +1,5 @@
+'use strict';
+
 const uuid = require('uuid');
 
 // this module provides volatile storage, using a `ShoppingList`
@@ -12,13 +14,13 @@ const uuid = require('uuid');
 
 
 function StorageException(message) {
-   this.message = message;
-   this.name = "StorageException";
+  this.message = message;
+  this.name = 'StorageException';
 }
 
 const ShoppingList = {
   create: function(name, budget) {
-    console.log('Creating new shopping list item');
+    console.log('Creating new shopping list item'); // eslint-disable-line no-console
     const item = {
       name: name,
       id: uuid.v4(),
@@ -28,19 +30,19 @@ const ShoppingList = {
     return item;
   },
   get: function() {
-    console.log('Retrieving shopping list items');
+    console.log('Retrieving shopping list items'); // eslint-disable-line no-console
     return Object.keys(this.items).map(key => this.items[key]);
   },
   delete: function(id) {
-    console.log(`Deleting shopping list item \`${id}\``);
+    console.log(`Deleting shopping list item \`${id}\``); // eslint-disable-line no-console
     delete this.items[id];
   },
   update: function(updatedItem) {
-    console.log(`Updating shopping list item \`${updatedItem.id}\``);
+    console.log(`Updating shopping list item \`${updatedItem.id}\``); // eslint-disable-line no-console
     const {id} = updatedItem;
     if (!(id in this.items)) {
       throw StorageException(
-        `Can't update item \`${id}\` because doesn't exist.`)
+        `Can't update item \`${id}\` because doesn't exist.`);
     }
     this.items[updatedItem.id] = updatedItem;
     return updatedItem;
@@ -55,7 +57,7 @@ function createShoppingList() {
 
 const Recipes = {
   create: function(name, ingredients) {
-    console.log('Creating a new recipe');
+    console.log('Creating a new recipe'); // eslint-disable-line no-console
     const item = {
       name: name,
       id: uuid.v4(),
@@ -65,19 +67,19 @@ const Recipes = {
     return item;
   },
   get: function() {
-    console.log('Retreiving recipes');
+    console.log('Retreiving recipes'); // eslint-disable-line no-console
     return Object.keys(this.items).map(key => this.items[key]);
   },
   delete: function(itemId) {
-    console.log(`Deleting recipe with id \`${itemId}\``);
+    console.log(`Deleting recipe with id \`${itemId}\``); // eslint-disable-line no-console
     delete this.items[itemId];
   },
   update: function(updatedItem) {
-    console.log(`Updating recipe with id \`${updatedItem.id}\``);
+    console.log(`Updating recipe with id \`${updatedItem.id}\``); // eslint-disable-line no-console
     const {id} = updatedItem;
     if (!(id in this.items)) {
       throw StorageException(
-        `Can't update item \`${id}\` because doesn't exist.`)
+        `Can't update item \`${id}\` because doesn't exist.`);
     }
     this.items[updatedItem.id] = updatedItem;
     return updatedItem;
@@ -94,4 +96,4 @@ function createRecipes() {
 module.exports = {
   ShoppingList: createShoppingList(),
   Recipes: createRecipes()
-}
+};
